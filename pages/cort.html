@@ -1,0 +1,33 @@
+<h1>Cort</h1> 
+<div ng-controller="CortCtrl"> 
+    <a href="" id="show-cort">Показать товары</a>
+    <div id="cortContainer"></div>
+</div>
+
+<script>
+    $('#show-cort').click(function(){
+        var cortContainer = document.getElementById('cortContainer');
+        var code = '';
+        for(var i=0; i<cortItem.length; i++){
+            code += '<div id="'+i+'" >';
+            code += '<h3>Name: '+cortItem[i].name+"</h3>";
+            code += '<div>Color: '+cortItem[i].color+"</div>";
+            code += '<div>'+cortItem[i].issue+"</div>";
+            code += '<div>In stok: '+cortItem[i].stok+"</div>";
+            code += '<div>Price: '+cortItem[i].price+"</div>";
+            code += '<input type="button" id="'+i+'" value="Удалить товар" onclick="deleteObject(this)">';
+            code += '</div>';
+        }
+        cortContainer.innerHTML = code;
+    });
+    
+    function deleteObject(a){
+        $('#'+a.id).remove();
+        id = a.id;
+        cortItem.pop(a.id);
+        cortCounter--;
+        $('#cort').text('Cort ('+cortCounter+')');
+    }
+    
+    
+</script>

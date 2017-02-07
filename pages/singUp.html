@@ -1,0 +1,50 @@
+<h1>SingUp</h1>
+<p>Your email</p>
+<input id="email" type="text">
+<p>password</p>
+<input id="passwod-a" type="text">
+<p>password confirm</p>
+<input id="passwod-b" type="text">
+<p></p>
+<input id="register-button" type="button" value="Register">
+
+<script>
+    $('#register-button').click(function () {
+        $('#passwod-a').attr('style', 'color: black;');
+        $('#passwod-b').attr('style', 'color: black;');
+        if ($('#passwod-a').val() == $('#passwod-b').val()) {
+            if (checkEmail($('#email').val())) {
+                localStorage.setItem('login', $('#email').val());
+                localStorage.setItem('password', $('#passwod-a').val());
+                window.location.href = "index.html#/logIn";
+            }
+            else {}
+        }
+        else {
+            $('#passwod-a').attr('style', 'color: red;');
+            $('#passwod-b').attr('style', 'color: red;');
+        }
+
+        function checkEmail(email) {
+            var results = false;
+            for (var i = 0; i < email.length; i++) {
+                try {
+                    var j = i + 1
+                    if (email.substring(i, j) == '@') {
+                        results = true;
+                    }
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            }
+            if (results) {
+                $('#email').attr('style', 'color: black;');
+            }
+            else {
+                $('#email').attr('style', 'color: red;');
+            }
+            return results;
+        }
+    });
+</script>

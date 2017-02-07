@@ -1,0 +1,62 @@
+[
+    {
+        "id": "1",
+        "name": "Azat",
+        "color": "Red",
+        "issue": "2017-05-01",
+        "price": 100,
+        "raiting": "4.5",
+        "stok": true,
+        "image": "images/1.png"
+    } ,
+    {
+        "id": "2",
+        "name": "Azat 2",
+        "color": "White",
+        "issue": "2017-05-02",
+        "price": 200,
+        "raiting": "4.5",
+        "stok": true,
+        "image": "images/2.png"
+    } ,
+    {
+        "id": "3",
+        "name": "Azat 3",
+        "color": "Blue",
+        "issue": "2017-05-03",
+        "price": 300,
+        "raiting": "4.5",
+        "stok": false,
+        "image": "images/3.png"
+    } ,
+    {
+        "id": "4",
+        "name": "Azat 4",
+        "color": "Blue",
+        "issue": "2017-05-04",
+        "price": 400,
+        "raiting": "4.5",
+        "stok": true,
+        "image": "images/4.png"
+    } ,
+    {
+        "id": "5",
+        "name": "Iphone",
+        "color": "Red",
+        "issue": "2017-01-04",
+        "price": 500,
+        "raiting": "5",
+        "stok": true,
+        "image": "images/5.png"
+    } ,
+    {
+        "id": "6",
+        "name": "Samsung",
+        "color": "Blue",
+        "issue": "2017-09-04",
+        "price": 600,
+        "raiting": "4.1",
+        "stok": true,
+        "image": "images/6.png"
+    } 
+]

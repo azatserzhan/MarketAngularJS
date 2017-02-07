@@ -1,0 +1,44 @@
+<h1>Search</h1> 
+<div ng-controller="SearchCtrl"> 
+    <div id=cort>Корзина:</div>
+        <div>
+            <input type="text" ng-model="query">
+            <a href="" ng-click="sort('name')">Сортировать по названию</a>
+            <t id="skot-text"><input type="checkbox" id="stok-button" href="" ng-click="stokButton()">Есть на складе</t>
+            <select id="select-color" ng-click="selectColor">
+                <option>Red</option>
+                <option>Blue</option>
+                <option>White</option>
+            </select>
+            <t>Цены от</t><input id="price-a" type="text" ng-click="priceSet()"><t>До</t><input id="price-b" type="text" ng-click="priceSet()">
+            <p>
+            <t>Сортировать по дате</t>
+            <t>От</t><input id="data-a" type="date">
+            <t>До</t><input id="data-b" type="date">
+            <p></p>
+            <input type="button" ng-click="setAllFiter()" value="Применить">
+            <input type="button" ng-click="refresh()" value="Сбросить все">
+        </div>
+        
+    <div class="search-sort" ng-repeat="phone in phones | orderBy:sortField:reverse | filter:query| filter:inStok | filter:colorFilter | filter:priceFilter | filter:dateFilter | filter:stokText">
+            <div class="finded-group">
+            <img class="finded-img" ng-src="{{ phone.image }}">
+                <div class="finded-name">
+                    <t>Name: {{ phone.name }}</t>
+                    <t>Color: {{ phone.color }}</t></div>
+                <div class="finded-issue">
+                    <t>{{ phone.issue }}</t>
+                    <t>In stok: {{ phone.stok }}</t>
+                </div>
+                <div class="finded-price">
+                <t>Price {{ phone.price }}</t>
+                    <input type="button" ng-click="addCort(phone)" value="Order"></div>
+            </div>
+        </div>    
+        <p>Общее количество: {{ phones.length }}</p>
+    {{date}}
+    </div>
+
+<script>
+    
+</script>

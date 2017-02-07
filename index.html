@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <script src="libs/jquery.js"></script>
+    <script src="libs/angular.js"></script>
+    <script src="libs/angular-route.js"></script>
+    
+</head>
+
+<body> 
+    <a href="#/logIn">Login</a> 
+    <a href="#/singUp">Registration</a> 
+    <t id="user-name"></t>
+    <a id="search" href="#/search" style="visibility: hidden;">Search</a>
+    <a id="cort" href="#/cort" style="visibility: hidden;">Cort</a>
+    <div>
+            <ng-view></ng-view>
+    </div>
+    
+    <script>
+        var app = angular.module("myApp", ['ngRoute']);
+        var cortCounter = 0;
+        var cortItem = [];
+        var dateForFind = {
+                year: [0,0],
+                month: [0,0],
+                day: [0,0]
+            }
+        
+        app.config(function($routeProvider) {
+        $routeProvider
+        .when("/logIn", {
+            templateUrl : "pages/logIn.html",
+            controller: "LoginCtrl"
+        })
+        .when("/singUp", {
+            templateUrl : "pages/singUp.html",
+            controller: "SingUpCtrl"
+        })
+        .when("/search", {
+            templateUrl : "pages/search.html",
+            controller: "SearchCtrl"
+        })
+        .when("/cort", {
+            templateUrl : "pages/cort.html",
+            controller: "CortCtrl"
+        });
+    });
+        
+        
+        app.controller('SingUpCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
+        
+        }]);
+        
+        app.controller('LoginCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
+        
+        }]);
+        
+        app.controller('CortCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
+        
+        }]);
+        
+        var statusItem = true;
+        app.controller('SearchCtrl', function ($scope, $http, $location) {
+            $scope.doneAndFilter = function (phoneItem) {
+                return phoneItem.name && phoneItem.stok === true;
+            }
+            
+            $scope.sortField = undefined;
+            $scope.reverse = false;
+            $scope.sort = function (fieldName) {
+                console.log(fieldName);
+                if ($scope.sortField === fieldName) {
+                    $scope.reverse = !$scope.reverse;
+                }
+                else {
+                    $scope.sortField = fieldName;
+                    $scope.reverse = false;
+                }
+            }
+            $scope.addCort = function(object){
+                cortCounter++;
+                $('#cort').text('Cort ('+cortCounter+')');
+                cortItem.push(object);
+            }
+            
+            //Filters
+            $scope.stokButton = function(){
+                if($scope.inStok){
+                    $scope.inStok = '';
+                    $('#stok-text').text('Есть на складе');
+                }else{
+                    $('#stok-text').text('Нет на складе');
+                    $scope.inStok = true;
+                }
+            }
+            
+            //Color
+            $('#select-color').change(function(){
+                selected = $('#select-color option:selected').attr('value');     
+                $scope.selectColor();
+            });
+            
+            $scope.selectColor = function(){
+                $scope.colorFilter = selected;
+            }
+            
+            //Price
+            $scope.change = function(){
+                $scope.priceSet();
+            }
+            $('#price-a').change(function(){
+                $scope.priceSet();
+                
+            });
+            $('#price-b').change(function(){
+                $scope.priceSet();
+            });
+            
+            $scope.priceSet = function(){
+                var priceA = $('#price-a').val()*1;
+                var priceB = $('#price-b').val()*1;
+                if(priceA>priceB){
+                    priceB = priceA + 100;
+                    $('#price-b').val(priceB);
+                }
+                $scope.priceFilter = function(item){
+                    if(priceA==0 || priceB==0){
+                        return item;
+                    }else{
+                        return item.price>=priceA && item.price<=priceB;
+                    }
+                    
+                }
+            }
+            
+
+            //Date
+            $('#data-a').change(function(){
+                setDateArray('data-a', 0);
+            });
+            $('#data-b').change(function(){
+                setDateArray('data-b', 1);
+                $scope.setDate();
+            });
+            
+            
+            $scope.setDate = function(){
+                $scope.dateFilter = function(date){
+                    var day = date.issue.substring(8,10)*1;
+                    var month = date.issue.substring(5,7)*1;
+                    var year = date.issue.substring(0,4)*1;
+                    var allValue = day+(month*30)+(year*365);
+                    var allValueA = dateForFind.day[0] + dateForFind.month[0]*30 + dateForFind.year[0]*365;
+                    var allValueB = dateForFind.day[1] + dateForFind.month[1]*30 + dateForFind.year[1]*365;
+                    
+                    return allValue>=allValueA && allValue<=allValueB;
+                }
+            }
+                
+            function setDateArray(dataId, index){
+                var date=$('#'+dataId).val();
+                var day = date.substring(8,10)*1;
+                var month = date.substring(5,7)*1;
+                var year = date.substring(0,4)*1;
+                
+                dateForFind.year[index] = year;
+                dateForFind.month[index] = month;
+                dateForFind.day[index] = day;
+            }
+            
+            $scope.setAllFiter = function(){
+                $scope.setDate();
+            }
+            
+            $scope.refresh = function(){
+                location.reload();
+            }
+            
+        //JSON
+            $http.get('phones.json').success(function (data, status, header, config) {
+                $scope.phones = data;
+            }).error(function () {
+                console.log('e');
+            });
+        });
+        
+        if (localStorage.getItem('login').length != 0) {
+            $('#search').attr('style', 'visibility: visible');
+            $('#cort').attr('style', 'visibility: visible');
+            $('#user-name').text(localStorage.getItem('login'));
+        }
+    </script>
+</body>
+
+</html>

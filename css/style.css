@@ -1,0 +1,15 @@
+div{
+
+  position: relative;
+  width: 1000px;
+}
+
+#search-sort{}
+.finded-group{float: left;background-color: antiquewhite;
+margin: 10px;
+padding: 10px;
+}
+.finded-name{width: 120px;height: 18px;float: left;padding: 10px;}
+.finded-issue{float: left;width: 88px;padding: 10px;}
+.finded-price{float: left;width: 81px;padding: 10px;}
+.finded-img{float: left;}
